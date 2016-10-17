@@ -26,7 +26,7 @@
 ;;; Commentary:
 ;;
 ;; This package provides a minor mode `dired-icon-mode' to display an icon for
-;; each file type in dired buffers.  Currently systems which runs GTK, such as
+;; each file type in dired buffers.  Currently systems which runs GTK 3, such as
 ;; GNU/Linux and FreeBSD, are fully supported.
 
 ;; To report bugs and make feature requests, please open a new ticket at the
@@ -49,8 +49,9 @@
   "The path of the executable of the \"file\" executable."
   :type 'string)
 
-(defcustom dired-icon-python2-executable "python2"
-  "The path of the executable of the \"python2\" executable (Python 2.x is required)."
+(defcustom dired-icon-python-executable "python3"
+  "The path of the executable of the \"python\" executable.
+Python 3 is recommended."
   :type 'string)
 
 (defvar dired-icon--script-directory
@@ -67,10 +68,10 @@
   (cond
    ;; GTK2
    ((and (executable-find dired-icon-file-executable)
-         (executable-find dired-icon-python2-executable)
-         (= 0 (call-process dired-icon-python2-executable nil nil nil
+         (executable-find dired-icon-python-executable)
+         (= 0 (call-process dired-icon-python-executable nil nil nil
                             (expand-file-name
-                             "get-icon-path-gtk2.py"
+                             "get-icon-path-gtk3.py"
                              dired-icon--script-directory) "test")))
     (with-temp-buffer
       ;; insert the list of mimetypes into the temp buffer
@@ -80,10 +81,10 @@
                       "-b" "--mime-type" fn))
       ;; replace the current buffer with an icon file name in each line
       (call-process-region (point-min) (point-max)
-                           dired-icon-python2-executable
+                           dired-icon-python-executable
                            t t nil
                            (expand-file-name
-                            "get-icon-path-gtk2.py"
+                            "get-icon-path-gtk3.py"
                             dired-icon--script-directory))
       ;; create an image object for each icon
       (let ((icon-images nil))
