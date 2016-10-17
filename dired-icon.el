@@ -32,6 +32,12 @@
 ;; <https://wiki.gnome.org/action/show/Projects/PyGObject>).  On other systems,
 ;; currently only directory icons are displayed.
 
+;; To display the icons in a dired buffer, simply call M-x `dired-icon-mode'
+;; inside a dired buffer. To always display the file icons in dired buffers, add
+;; the following to your ~/.emacs or ~/.emacs.d/init.el:
+;;
+;;     (add-hook 'dired-mode-hook 'dired-icon-mode)
+
 ;; To report bugs and make feature requests, please open a new ticket at the
 ;; issue tracker <https://gitlab.com/xuhdev/dired-icon/issues>.  To contribute,
 ;; please create a merge request at
