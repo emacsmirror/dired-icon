@@ -142,9 +142,11 @@ Python 3 is recommended."
                count
                (when (dired-goto-file fn)
                  (let ((image
-                        (if (file-directory-p fn)
-                            ezimage-directory
-                          icon)))
+                        (or icon
+                            ;; Even if the directory icon do not exist, we can
+                            ;; still use the directory image from ezimage.
+                            (when (file-directory-p fn)
+                              ezimage-directory))))
                    (when image
                      (dired-move-to-filename)
                      (push (put-image image (point))
