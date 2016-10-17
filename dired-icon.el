@@ -73,7 +73,7 @@ Python 3 is recommended."
 (defun dired-icon--get-icons (file-names)
   "Create an alist, which maps the files FILE-NAMES to image objects."
   (cond
-   ;; GTK2
+   ;; GTK 3
    ((and (executable-find dired-icon-file-executable)
          (executable-find dired-icon-python-executable)
          (= 0 (call-process dired-icon-python-executable nil nil nil
