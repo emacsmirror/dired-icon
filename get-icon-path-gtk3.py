@@ -26,14 +26,19 @@ import sys
 
 from gi.repository import Gtk, Gio
 
-# If we only need to test the availability of gtk libraries, exit now.
-if len(sys.argv) == 2 and sys.argv[1] == 'test':
-    sys.exit(0)
+image_size = -1
+
+if len(sys.argv) == 2:
+    # If we only need to test the availability of gtk libraries, exit now.
+    if sys.argv[1] == 'test':
+        sys.exit(0)
+    else:
+        image_size = int(sys.argv[1])
 
 for line in sys.stdin:
     icon = Gio.content_type_get_icon(line.strip())
     theme = Gtk.IconTheme.get_default()
-    info = theme.choose_icon(icon.get_names(), -1, 0)
+    info = theme.choose_icon(icon.get_names(), image_size, 0)
     if info:
         print(info.get_filename())
     else:

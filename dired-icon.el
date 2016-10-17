@@ -57,6 +57,10 @@
 Python 3 is recommended."
   :type 'string)
 
+(defcustom dired-icon-gtk-image-size 16
+  "Image size on GTK systems, such as 16, 32, 64."
+  :type 'integer)
+
 (defvar dired-icon--script-directory
   (if load-file-name
       (file-name-directory load-file-name)
@@ -88,7 +92,8 @@ Python 3 is recommended."
                            t t nil
                            (expand-file-name
                             "get-icon-path-gtk3.py"
-                            dired-icon--script-directory))
+                            dired-icon--script-directory)
+                           (number-to-string dired-icon-gtk-image-size))
       ;; create an image object for each icon
       (let ((icon-images nil))
         (dolist (icon-fname (split-string (buffer-string) "\n" nil))
