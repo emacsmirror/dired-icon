@@ -103,16 +103,30 @@
     (cl-pairlis file-names
                 (make-list (length file-names) nil)))))
 
-(defun dired-icon-display ()
-  "Display the icons."
-  (interactive)
-  ;; always clear the overlays from last readin
+(defun dired-icon--get-files ()
+  "List all files in the current dired buffer."
+  (save-excursion
+    (let ((files))
+      (goto-char (point-min))
+      (while (not (eobp))
+        (let ((file (dired-get-filename nil t)))
+          (when file (push file files))
+          (forward-line 1)))
+      files)))
+
+(defun dired-icon--clear-icons ()
+  "Clear the icons in the current dired buffer."
   (when (boundp 'dired-icon--overlays)
     (dolist (o dired-icon--overlays)
       (delete-overlay o)))
-  (setq-local dired-icon--overlays nil)
+  (setq-local dired-icon--overlays nil))
 
-  (let* ((files (directory-files default-directory t))
+(defun dired-icon-display ()
+  "Display the icons of files in a dired buffer."
+  (interactive)
+  ;; always clear the overlays from last readin
+  (dired-icon--clear-icons)
+  (let* ((files (dired-icon--get-files))
          (file-icons (dired-icon--get-icons files)))
     (save-excursion
       (cl-loop for (fn . icon) in file-icons
@@ -130,7 +144,13 @@
 (define-minor-mode dired-icon-mode
   "Display icons according to the file types in dired buffers."
   :lighter "dired-icon"
-  (add-hook 'dired-after-readin-hook 'dired-icon-display))
+  (if dired-icon-mode
+      (progn
+        (add-hook 'dired-after-readin-hook 'dired-icon-display)
+        (when (eq major-mode 'dired-mode)
+          (dired-icon-display)))
+    (remove-hook 'dired-after-readin-hook 'dired-icon-display)
+    (dired-icon--clear-icons)))
 
 (provide 'dired-icon)
 
