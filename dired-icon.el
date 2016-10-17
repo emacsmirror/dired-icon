@@ -64,8 +64,9 @@
 
 (defun dired-icon--get-icons (file-names)
   "Create an alist, which maps the files FILE-NAMES to image objects."
-  (cond ((string-equal system-type "windows-nt") nil)  ;; to be implemented
-        ((string-equal system-type "darwin") nil) ;; to be implemented
+  (cond ((member system-type '(windows-nt darwin))  ;; to be implemented
+         (cl-pairlis file-names
+                     (make-list (length file-names) nil)))
         (t   ;; X11
          (with-temp-buffer
            ;; insert the list of mimetypes into the temp buffer
