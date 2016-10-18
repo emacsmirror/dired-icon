@@ -94,7 +94,7 @@ Python 3 is recommended."
       (dolist (fn file-names)
         (goto-char (point-min)) ;; reverse the file name insertion order
         (call-process dired-icon-file-executable nil t nil
-                      "-b" "--mime-type" fn))
+                      "-b" "--mime-type" (file-chase-links fn)))
       ;; replace the current buffer with an icon file name in each line
       (call-process-region (point-min) (point-max)
                            dired-icon-python-executable
