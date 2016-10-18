@@ -4,7 +4,7 @@
 
 ;; Author: Hong Xu <hong@topbug.net>
 ;; URL: https://gitlab.com/xuhdev/dired-icon
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: dired, files
 ;; Package-Requires: ((cl-lib "0.5"))
 
