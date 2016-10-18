@@ -49,6 +49,7 @@
 (require 'cl-lib)
 (require 'dired)
 (require 'ezimage)
+(require 'mailcap)
 
 (defgroup dired-icon nil
   "Display icons for files in dired buffers."
