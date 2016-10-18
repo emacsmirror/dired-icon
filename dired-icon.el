@@ -143,9 +143,10 @@ Python 3 is recommended."
     (let ((files))
       (goto-char (point-min))
       (while (not (eobp))
-        (let ((file (dired-get-filename nil t)))
-          (when file (push file files))
-          (forward-line 1)))
+        (unless (member (dired-get-filename 'verbatim t) '("." ".."))
+          (let ((file (dired-get-filename nil t)))
+            (when file (push file files))))
+        (forward-line 1))
       files)))
 
 (defun dired-icon--clear-icons ()
