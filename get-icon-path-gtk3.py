@@ -36,7 +36,12 @@ if len(sys.argv) == 2:
         image_size = int(sys.argv[1])
 
 for line in sys.stdin:
-    icon = Gio.content_type_get_icon(line.strip())
+    mimetype = line.strip()
+    if not mimetype:  # ignore empty mime types
+        print()
+        continue
+
+    icon = Gio.content_type_get_icon(mimetype)
     theme = Gtk.IconTheme.get_default()
     info = theme.choose_icon(icon.get_names(), image_size, 0)
     if info:
