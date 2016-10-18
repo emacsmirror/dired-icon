@@ -153,9 +153,8 @@ Python 3 is recommended."
       (delete-overlay o)))
   (setq-local dired-icon--overlays nil))
 
-(defun dired-icon-display ()
+(defun dired-icon--display ()
   "Display the icons of files in a dired buffer."
-  (interactive)
   ;; always clear the overlays from last readin
   (dired-icon--clear-icons)
   (let* ((files (dired-icon--get-files))
@@ -175,15 +174,16 @@ Python 3 is recommended."
                      (push (put-image image (point))
                            dired-icon--overlays))))))))
 
+;;;###autoload
 (define-minor-mode dired-icon-mode
   "Display icons according to the file types in dired buffers."
   :lighter "dired-icon"
   (if dired-icon-mode
       (progn
-        (add-hook 'dired-after-readin-hook 'dired-icon-display)
+        (add-hook 'dired-after-readin-hook 'dired-icon--display)
         (when (eq major-mode 'dired-mode)
-          (dired-icon-display)))
-    (remove-hook 'dired-after-readin-hook 'dired-icon-display)
+          (dired-icon--display)))
+    (remove-hook 'dired-after-readin-hook 'dired-icon--display)
     (dired-icon--clear-icons)))
 
 (provide 'dired-icon)
