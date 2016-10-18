@@ -28,7 +28,7 @@
 ;; This package provides a minor mode `dired-icon-mode' to display an icon for
 ;; each file type in dired buffers.  Currently systems which run GTK 3, such as
 ;; GNU/Linux, GNU/kFreeBSD and FreeBSD, are fully supported (pre-requisition:
-;; PyGObject for Python 3
+;; the file command <http://darwinsys.com/file/> and PyGObject for Python 3
 ;; <https://wiki.gnome.org/action/show/Projects/PyGObject>).  On other systems,
 ;; currently only directory icons are displayed.
 
