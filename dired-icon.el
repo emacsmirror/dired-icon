@@ -92,8 +92,10 @@ Python 3 is recommended."
                            "-b" "--mime-type" (file-chase-links file-name))
          (substring (buffer-string) 0 -1))))
     ;; Use mailcap-extension-to-mime as a fallback
-    (t (let ((ext (file-name-extension file-name)))
-         (when ext (mailcap-extension-to-mime ext))))))
+    (t (if (file-directory-p file-name)
+           "inode/directory"
+         (let ((ext (file-name-extension file-name)))
+           (when ext (mailcap-extension-to-mime ext)))))))
 
 (defun dired-icon--get-icons (file-names)
   "Create an alist, which maps the files FILE-NAMES to image objects."
