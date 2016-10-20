@@ -13,6 +13,12 @@ directory icons are displayed.
 
 ## Installation
 
+### MELPA
+
+dired-quick-sort can be installed from the [MELPA][] repository. Follow the
+[instructions](http://melpa.org/#/getting-started) to set up MELPA and then run
+`package-install RET dired-icon RET` to install.
+
 ### Manual
 
 Download this package and add the following to your `~/.emacs` or `~/.emacs.d/init.el`:
