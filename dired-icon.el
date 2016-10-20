@@ -6,7 +6,7 @@
 ;; URL: https://gitlab.com/xuhdev/dired-icon
 ;; Version: 0.2
 ;; Keywords: dired, files
-;; Package-Requires: ((cl-lib "0.5"))
+;; Package-Requires: ((emacs "24.3"))
 
 ;; This file is not part of GNU Emacs.
 
