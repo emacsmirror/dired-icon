@@ -33,3 +33,5 @@ always display the file icons in dired buffers, add the following to your `~/.em
 `~/.emacs.d/init.el`:
 
     (add-hook 'dired-mode-hook 'dired-icon-mode)
+
+[MELPA]: http://melpa.org/#/dired-icon
