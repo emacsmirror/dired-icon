@@ -184,10 +184,10 @@ Python 3 is recommended."
   :lighter "dired-icon"
   (if dired-icon-mode
       (progn
-        (add-hook 'dired-after-readin-hook 'dired-icon--display)
+        (add-hook 'dired-after-readin-hook 'dired-icon--display t t)
         (when (eq major-mode 'dired-mode)
           (dired-icon--display)))
-    (remove-hook 'dired-after-readin-hook 'dired-icon--display)
+    (remove-hook 'dired-after-readin-hook 'dired-icon--display t)
     (dired-icon--clear-icons)))
 
 (provide 'dired-icon)
