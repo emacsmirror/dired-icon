@@ -15,9 +15,15 @@ directory icons are displayed.
 
 ### MELPA
 
-dired-quick-sort can be installed from the [MELPA][] repository. Follow the
-[instructions](http://melpa.org/#/getting-started) to set up MELPA and then run
-`package-install RET dired-icon RET` to install.
+dired-icon can be installed from the [MELPA][] repository. Follow
+the [instructions](http://melpa.org/#/getting-started) to set up MELPA and then run `package-install
+RET dired-icon RET` to install.
+
+### el-get
+
+dired-icon can be installed via [el-get][]. Follow
+the [instructions](https://github.com/dimitri/el-get#installation) to set up el-get and then run
+`el-get-install RET dired-icon RET` to install.
 
 ### Manual
 
