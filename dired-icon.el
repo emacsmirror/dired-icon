@@ -58,15 +58,18 @@
 
 (defcustom dired-icon-file-executable "file"
   "The path of the executable of the \"file\" executable."
+  :group 'dired-icon
   :type 'string)
 
 (defcustom dired-icon-python-executable "python3"
   "The path of the executable of the \"python\" executable.
 Python 3 is recommended."
+  :group 'dired-icon
   :type 'string)
 
 (defcustom dired-icon-gtk-image-size 16
   "Image size on GTK systems, such as 16, 32, 64."
+  :group 'dired-icon
   :type 'integer)
 
 (defvar dired-icon--script-directory
