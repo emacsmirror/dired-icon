@@ -4,7 +4,7 @@
 
 ;; Author: Hong Xu <hong@topbug.net>
 ;; URL: https://gitlab.com/xuhdev/dired-icon
-;; Version: 0.2
+;; Version: 0.3
 ;; Keywords: dired, files
 ;; Package-Requires: ((emacs "24.3"))
 
