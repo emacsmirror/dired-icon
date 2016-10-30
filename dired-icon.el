@@ -118,7 +118,7 @@ Python 3 is recommended."
       ;; replace the current buffer with an icon file name in each line
       (call-process-region (point-min) (point-max)
                            dired-icon-python-executable
-                           t t nil
+                           t '(t nil) nil
                            (expand-file-name
                             "get-icon-path-gtk3.py"
                             dired-icon--script-directory)
