@@ -40,4 +40,5 @@ always display the file icons in dired buffers, add the following to your `~/.em
 
     (add-hook 'dired-mode-hook 'dired-icon-mode)
 
+[el-get]: http://tapoueh.org/emacs/el-get.html
 [MELPA]: http://melpa.org/#/dired-icon
