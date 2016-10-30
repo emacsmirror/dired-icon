@@ -86,20 +86,20 @@ Python 3 is recommended."
 
 (defun dired-icon--guess-mime-type (file-name)
   "Guess the mime type from a file name FILE-NAME."
-   (cond
-    ;; Use the file command to detect, for local readable files only.
-    ((and (executable-find dired-icon-file-executable)
-          (not (file-remote-p file-name))
-          (file-readable-p file-name))
-     (with-temp-buffer
-       (when (call-process dired-icon-file-executable nil t nil
-                           "-b" "--mime-type" (file-chase-links file-name))
-         (substring (buffer-string) 0 -1))))
-    ;; Use mailcap-extension-to-mime as a fallback
-    (t (if (file-directory-p file-name)
-           "inode/directory"
-         (let ((ext (file-name-extension file-name)))
-           (when ext (mailcap-extension-to-mime ext)))))))
+  (cond
+   ;; Use the file command to detect, for local readable files only.
+   ((and (executable-find dired-icon-file-executable)
+         (not (file-remote-p file-name))
+         (file-readable-p file-name))
+    (with-temp-buffer
+      (when (call-process dired-icon-file-executable nil t nil
+                          "-b" "--mime-type" (file-chase-links file-name))
+        (substring (buffer-string) 0 -1))))
+   ;; Use mailcap-extension-to-mime as a fallback
+   (t (if (file-directory-p file-name)
+          "inode/directory"
+        (let ((ext (file-name-extension file-name)))
+          (when ext (mailcap-extension-to-mime ext)))))))
 
 (defun dired-icon--get-icons (file-names)
   "Create an alist, which maps the files FILE-NAMES to image objects."
