@@ -157,11 +157,13 @@ Python 3 is recommended."
   "Clear the icons in the current dired buffer.  If the buffer is
 narrowed, clear the narrowed region only."
   (when (boundp 'dired-icon--overlays)
-    (dolist (o dired-icon--overlays)
-      (when (and (>= (overlay-start o) (point-min))
+    (let ((left-overlays nil))
+      (dolist (o dired-icon--overlays)
+        (if (and (>= (overlay-start o) (point-min))
                  (<= (overlay-end o) (point-max)))
-        (delete-overlay o))))
-  (setq-local dired-icon--overlays nil))
+            (delete-overlay o)
+          (push o left-overlays)))
+      (setq-local dired-icon--overlays left-overlays))))
 
 (defun dired-icon--display ()
   "Display the icons of files in a dired buffer."
