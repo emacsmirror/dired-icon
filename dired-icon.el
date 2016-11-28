@@ -170,7 +170,7 @@ narrowed, clear the narrowed region only."
 function to call after `dired-kill-line' or other dired functions
 that kill lines."
   (when after  ;; only deal with the case AFTER the line killed.
-    (setq dired-icon--overlays (delete o dired-icon--overlays))
+    (setq dired-icon--overlays (delq o dired-icon--overlays))
     (delete-overlay o)))
 
 (defun dired-icon--display ()
