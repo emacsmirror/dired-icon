@@ -166,7 +166,7 @@ narrowed, clear the narrowed region only."
       (setq-local dired-icon--overlays left-overlays))))
 
 (defun dired-icon--update-upon-kill (o after beg end &optional length)
-  "Hides the overlay after the line being killed.  It is a
+  "Hide the overlay after the line being killed.  It is a
 function to call after `dired-kill-line' or other dired functions
 that kill lines."
   (when after  ;; only deal with the case AFTER the line killed.
