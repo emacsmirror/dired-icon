@@ -165,6 +165,14 @@ narrowed, clear the narrowed region only."
           (push o left-overlays)))
       (setq-local dired-icon--overlays left-overlays))))
 
+(defun dired-icon--update-upon-kill (o after beg end &optional length)
+  "Hides the overlay after the line being killed.  It is a
+function to call after `dired-kill-line' or other dired functions
+that kill lines."
+  (when after  ;; only deal with the case AFTER the line killed.
+    (setq dired-icon--overlays (delete o dired-icon--overlays))
+    (delete-overlay o)))
+
 (defun dired-icon--display ()
   "Display the icons of files in a dired buffer."
   ;; always clear the overlays from last readin
@@ -183,8 +191,10 @@ narrowed, clear the narrowed region only."
                               ezimage-directory))))
                    (when image
                      (dired-move-to-filename)
-                     (push (put-image image (point))
-                           dired-icon--overlays))))))))
+                     (let ((o (put-image image (point))))
+                       (push #'dired-icon--update-upon-kill
+                             (overlay-get o 'modification-hooks))
+                       (push o dired-icon--overlays)))))))))
 
 ;;;###autoload
 (define-minor-mode dired-icon-mode
