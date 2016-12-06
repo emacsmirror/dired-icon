@@ -204,7 +204,7 @@ that kill lines."
       (progn
         (add-hook 'dired-before-readin-hook 'dired-icon--clear-icons t t)
         (add-hook 'dired-after-readin-hook 'dired-icon--display t t)
-        (when (eq major-mode 'dired-mode)
+        (when (derived-mode-p 'dired-mode)
           (dired-icon--display)))
     (remove-hook 'dired-before-readin-hook 'dired-icon--clear-icons t)
     (remove-hook 'dired-after-readin-hook 'dired-icon--display t)
