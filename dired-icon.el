@@ -211,8 +211,7 @@ that kill lines."
   "Create or replace the `dired-icon--osx-executable' executable using the latest code."
   (interactive)
   (let ((default-directory dired-icon--script-directory))
-    (shell-command (concat "clang -O3 -framework CoreServices -framework AppKit get-icon-path-osx.m -o " (shell-quote-argument dired-icon--osx-executable)))
-    (expand-file-name dired-icon--osx-executable)))
+    (shell-command (concat "clang -O3 -framework CoreServices -framework AppKit get-icon-path-osx.m -o " (shell-quote-argument dired-icon--osx-executable)))))
 
 (defun dired-icon--get-icons-osx (file-names)
   (when (or (executable-find (expand-file-name dired-icon--osx-executable dired-icon--script-directory))
@@ -225,9 +224,8 @@ that kill lines."
       (when dired-files-string
         (setq icon-files-string (shell-command-to-string (format "%s \"%s\" \"%s\" \"%s\"" (expand-file-name dired-icon--osx-executable dired-icon--script-directory) dired-files-string dired-icon--osx-cache-dir (number-to-string dired-icon-gtk-image-size))))
 
-        (let ((icon-images nil)
-              (icon-files (reverse (split-string icon-files-string "\n" nil))))
-          (dolist (icon-fname icon-files)
+        (let ((icon-images nil))
+          (dolist (icon-fname (reverse (split-string icon-files-string "\n" nil)))
             (if (string= icon-fname "")
                 (push nil icon-images)
               (let ((image (gethash icon-fname dired-icon--image-hash)))
