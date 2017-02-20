@@ -137,7 +137,10 @@ recommended."
         ;; it.
         (pop icon-images)
         (cl-pairlis file-names icon-images))))
-   (t  ;; other unsupported systems
+   ;; MacOSX
+   ((and (equal system-type 'darwin))
+    (dired-icon--get-icons-osx file-names))
+   (t ;; other unsupported systems
     (cl-pairlis file-names
                 (make-list (length file-names) nil)))))
 
@@ -195,6 +198,44 @@ that kill lines."
                        (push #'dired-icon--update-upon-kill
                              (overlay-get o 'modification-hooks))
                        (push o dired-icon--overlays)))))))))
+
+;;; MacOSX variables
+(defvar dired-icon--osx-executable "dired-icon-osx-exe"
+  "Exe used to get file icon for OSX")
+
+(defvar dired-icon--osx-cache-dir (file-name-as-directory (expand-file-name "macosxcache" dired-icon--script-directory))
+  "Icon image cache directory for OSX")
+
+;;; MacOSX functions
+(defun dired-icon--osx-recompile ()
+  "Create or replace the `dired-icon--osx-executable' executable using the latest code."
+  (interactive)
+  (let ((default-directory dired-icon--script-directory))
+    (shell-command (concat "clang -O3 -framework CoreServices -framework AppKit get-icon-path-osx.m -o " (shell-quote-argument dired-icon--osx-executable)))
+    (expand-file-name dired-icon--osx-executable)))
+
+(defun dired-icon--get-icons-osx (file-names)
+  (when (or (executable-find (expand-file-name dired-icon--osx-executable dired-icon--script-directory))
+            (executable-find dired-icon--osx-executable)
+            (dired-icon--osx-recompile))
+    (let ((dired-files-string)
+          (icon-files-string))
+      (dolist (fn file-names)
+        (setq dired-files-string (concat dired-files-string fn "\n")))
+      (when dired-files-string
+        (setq icon-files-string (shell-command-to-string (format "%s \"%s\" \"%s\" \"%s\"" (expand-file-name dired-icon--osx-executable dired-icon--script-directory) dired-files-string dired-icon--osx-cache-dir (number-to-string dired-icon-gtk-image-size))))
+
+        (let ((icon-images nil)
+              (icon-files (reverse (split-string icon-files-string "\n" nil))))
+          (dolist (icon-fname icon-files)
+            (if (string= icon-fname "")
+                (push nil icon-images)
+              (let ((image (gethash icon-fname dired-icon--image-hash)))
+                (unless image
+                  (setq image (create-image icon-fname))
+                  (puthash icon-fname image dired-icon--image-hash))
+                (push image icon-images))))
+          (cl-pairlis file-names icon-images))))))
 
 ;;;###autoload
 (define-minor-mode dired-icon-mode
