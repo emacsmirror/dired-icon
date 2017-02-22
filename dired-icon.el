@@ -124,7 +124,7 @@ recommended."
                             dired-icon--script-directory)
                            (number-to-string dired-icon-gtk-image-size))
       ;; create an image object for each icon
-      (let ((icon-images nil))
+      (let (icon-images)
         (dolist (icon-fname (split-string (buffer-string) "\n" nil))
           (if (string= icon-fname "")
               (push nil icon-images)
