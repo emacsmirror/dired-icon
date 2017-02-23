@@ -67,10 +67,13 @@ recommended."
   :group 'dired-icon
   :type 'string)
 
-(defcustom dired-icon-gtk-image-size 16
-  "Image size on GTK systems, such as 16, 32, 64."
+(defcustom dired-icon-image-size 16
+  "Image size on GTK systems and MacOS, such as 16, 32, 64."
   :group 'dired-icon
   :type 'integer)
+
+(define-obsolete-variable-alias 'dired-icon-gtk-image-size
+  'dired-icon-image-size "0.5")
 
 (defvar dired-icon--script-directory
   (if load-file-name
@@ -122,7 +125,7 @@ recommended."
                            (expand-file-name
                             "get-icon-path-gtk3.py"
                             dired-icon--script-directory)
-                           (number-to-string dired-icon-gtk-image-size))
+                           (number-to-string dired-icon-image-size))
       ;; create an image object for each icon
       (let (icon-images)
         (dolist (icon-fname (split-string (buffer-string) "\n" nil))
@@ -225,7 +228,7 @@ that kill lines."
                                          (expand-file-name dired-icon--macos-executable dired-icon--script-directory)
                                          dired-files-string
                                          dired-icon--macos-cache-dir
-                                         (number-to-string dired-icon-gtk-image-size))))
+                                         (number-to-string dired-icon-image-size))))
 
         (let (icon-images)
           (dolist (icon-fname (reverse (split-string icon-files-string "\n" nil)))
