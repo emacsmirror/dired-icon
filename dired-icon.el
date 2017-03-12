@@ -245,7 +245,7 @@ that kill lines."
 ;;;###autoload
 (define-minor-mode dired-icon-mode
   "Display icons according to the file types in dired buffers."
-  :lighter "dired-icon"
+  :lighter " dired-icon"
   (if dired-icon-mode
       (progn
         (add-hook 'dired-before-readin-hook 'dired-icon--clear-icons t t)
